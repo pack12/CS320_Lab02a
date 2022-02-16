@@ -38,8 +38,9 @@ public class GuessingGameController {
 	 */
 	public void setNumberFound() {
 		//throw new UnsupportedOperationException("TODO - implement");
-		model.setMin(model.getGuess());
-		model.setMax(model.getGuess());
+		int i = model.getGuess();
+		model.setMin(i);
+		model.setMax(i);
 		model.isDone();
 	}
 
