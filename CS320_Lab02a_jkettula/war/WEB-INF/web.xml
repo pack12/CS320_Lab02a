@@ -18,6 +18,10 @@
     <servlet-name>GuessingGameServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab02a_jkettula.servlet.GuessingGameServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MultNumbersServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02a_jkettula.servlet.MultNumbersServlet</servlet-class>
+  </servlet>
   
   <!-- AJAX servlets. -->
   <servlet>
@@ -41,6 +45,10 @@
   <servlet-mapping>
     <servlet-name>GuessingGameServlet</servlet-name>
     <url-pattern>/guessingGame</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MultNumbersServlet</servlet-name>
+    <url-pattern>/multNumbers</url-pattern>
   </servlet-mapping>
   
   <!--  AJAX servlet mappings. -->
