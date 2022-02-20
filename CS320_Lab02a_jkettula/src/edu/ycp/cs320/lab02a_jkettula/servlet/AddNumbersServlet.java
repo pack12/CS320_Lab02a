@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.lab02a_jkettula.controller.NumbersController;
+import edu.ycp.cs320.lab02a_jkettula.model.Numbers;
 
 public class AddNumbersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,11 +36,25 @@ public class AddNumbersServlet extends HttpServlet {
 		// result of calculation goes here
 		Double result = null;
 		
+		//Create model
+		Numbers model = new Numbers();
+		
+		//Create controller
+		NumbersController controller = new NumbersController();
+		
+		//Giving Controller access to model methods
+		controller.setModel(model);
+		
+		
 		// decode POSTed form parameters and dispatch to controller
 		try {
 			Double first = getDoubleFromParameter(req.getParameter("first"));
 			Double second = getDoubleFromParameter(req.getParameter("second"));
 			Double third = getDoubleFromParameter(req.getParameter("third"));
+			
+			model.setFirst(first);
+			model.setSecond(second);
+			model.setThird(third);
 			//Double third = getDoubleFromParameter(req.getParameter("third"))
 
 			// check for errors in the form data before using is in a calculation
@@ -52,9 +67,12 @@ public class AddNumbersServlet extends HttpServlet {
 			// the view does not alter data, only controller methods should be used for that
 			// thus, always call a controller method to operate on the data
 			else {
-				NumbersController controller = new NumbersController();
+				//NumbersController controller = new NumbersController();
 				//result = controller.add(first, second, third)
+				
+				
 				result = controller.add(first, second, third);
+				model.setResult(result);
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
@@ -74,6 +92,7 @@ public class AddNumbersServlet extends HttpServlet {
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
 		
+		req.setAttribute("game", model);
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
 	}
