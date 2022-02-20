@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
 
 import edu.ycp.cs320.lab02a_jkettula.controller.NumbersController;
+import edu.ycp.cs320.lab02a_jkettula.model.Numbers;
 
 public class MultNumbersServlet extends HttpServlet{ 
 	private static final long serialVersionUID = 1L;
@@ -33,10 +34,22 @@ public class MultNumbersServlet extends HttpServlet{
 	// result of calculation goes here
 	Double result = null;
 	
+	Numbers model = new Numbers();
+	
+	NumbersController controller = new NumbersController();
+	
+	controller.setModel(model);
+	
 	// decode POSTed form parameters and dispatch to controller
 	try {
 		Double first = getDoubleFromParameter(req.getParameter("first"));
 		Double second = getDoubleFromParameter(req.getParameter("second"));
+		
+		
+		model.setFirst(first);
+		model.setSecond(second);
+		
+//		System.out.println(model.getFirst() * model.getSecond());
 //		Double third = getDoubleFromParameter(req.getParameter("third"));
 		//Double third = getDoubleFromParameter(req.getParameter("third"))
 
@@ -50,9 +63,12 @@ public class MultNumbersServlet extends HttpServlet{
 		// the view does not alter data, only controller methods should be used for that
 		// thus, always call a controller method to operate on the data
 		else {
-			NumbersController controller = new NumbersController();
+//			NumbersController controller = new NumbersController();
 			//result = controller.add(first, second, third)
 			result = controller.mult(first, second);
+			model.setResult(result);
+			
+			System.out.println(model.getResult());
 		}
 	} catch (NumberFormatException e) {
 		errorMessage = "Invalid double";
@@ -71,6 +87,8 @@ public class MultNumbersServlet extends HttpServlet{
 	req.setAttribute("errorMessage", errorMessage);
 	req.setAttribute("result", result);
 	
+	
+	req.setAttribute("game", model);
 	// Forward to view to render the result HTML document
 	req.getRequestDispatcher("/_view/multNumbers.jsp").forward(req, resp);
 }
