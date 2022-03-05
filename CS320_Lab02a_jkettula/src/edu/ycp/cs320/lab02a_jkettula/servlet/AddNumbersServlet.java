@@ -52,9 +52,9 @@ public class AddNumbersServlet extends HttpServlet {
 			Double second = getDoubleFromParameter(req.getParameter("second"));
 			Double third = getDoubleFromParameter(req.getParameter("third"));
 			
-			model.setFirst(first);
-			model.setSecond(second);
-			model.setThird(third);
+//			model.setFirst(first);
+//			model.setSecond(second);
+//			model.setThird(third);
 			//Double third = getDoubleFromParameter(req.getParameter("third"))
 
 			// check for errors in the form data before using is in a calculation
@@ -70,6 +70,9 @@ public class AddNumbersServlet extends HttpServlet {
 				//NumbersController controller = new NumbersController();
 				//result = controller.add(first, second, third)
 				
+				model.setFirst(first);
+				model.setSecond(second);
+				model.setThird(third);
 				
 				result = controller.add(first, second, third);
 				model.setResult(result);

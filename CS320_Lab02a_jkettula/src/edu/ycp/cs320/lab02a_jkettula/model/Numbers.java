@@ -23,9 +23,13 @@ public class Numbers {
 	
 	public void setThird(double third) {
 		this.third = third;
+		
+		
 	}
 	
 	public double getThird() {
+		
+		
 		return third;
 	}
 	
